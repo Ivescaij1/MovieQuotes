@@ -14,13 +14,48 @@
                     <view key="view" contentMode="scaleToFill" id="Xsw-eu-VGx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zDO-sy-uyk">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TempCell" textLabel="jpo-ew-Gkt" style="IBUITableViewCellStyleDefault" id="2EY-ar-n3d">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2EY-ar-n3d" id="sFE-HE-qVI">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jpo-ew-Gkt">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="MGY-Mj-E8n" id="Y3M-c6-eHD"/>
+                                    <outlet property="delegate" destination="MGY-Mj-E8n" id="jjx-gM-TrX"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="zDO-sy-uyk" firstAttribute="top" secondItem="B65-df-flj" secondAttribute="top" id="2OZ-pQ-bfd"/>
+                            <constraint firstItem="zDO-sy-uyk" firstAttribute="trailing" secondItem="B65-df-flj" secondAttribute="trailing" id="3TL-i8-DLc"/>
+                            <constraint firstAttribute="bottom" secondItem="zDO-sy-uyk" secondAttribute="bottom" id="EEX-YI-WJh"/>
+                            <constraint firstItem="zDO-sy-uyk" firstAttribute="leading" secondItem="B65-df-flj" secondAttribute="leading" id="O17-ga-l83"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="B65-df-flj"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sMX-Kq-eS5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-635" y="-440"/>
+            <point key="canvasLocation" x="-636.23188405797111" y="-440.625"/>
         </scene>
     </scenes>
 </document>
