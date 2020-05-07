@@ -13,6 +13,7 @@ class MovieQuotesTableViewController: UITableViewController {
     let movieQuoteCellIdentifer = "MovieQuoteCell"
     let detailSegueIdentifer = "DetailSegue"
     var movieQuotesRef: CollectionReference!
+    var movieQuoteListener: ListenerRegistration!
     
     var movieQuotes = [MovieQuote]()
     
@@ -32,7 +33,7 @@ class MovieQuotesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         tableView.reloadData()
         
-        movieQuotesRef.addSnapshotListener { (querySnapshot, error) in
+        movieQuoteListener = movieQuotesRef.order(by: "created", descending: true).limit(to: 50).addSnapshotListener {(querySnapshot, error) in
             if let querySnapshot = querySnapshot {
                 self.movieQuotes.removeAll()
                 querySnapshot.documents.forEach { (documentSnapshot) in
@@ -46,6 +47,11 @@ class MovieQuotesTableViewController: UITableViewController {
                 return
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        movieQuoteListener.remove()
     }
     
     @objc func showAddQuoteDialog() {
@@ -70,10 +76,15 @@ class MovieQuotesTableViewController: UITableViewController {
                                                     let movieTextField = alertController.textFields![1] as UITextField
                                                     //print(quoteTextField.text!)
                                                     //print(movieTextField.text!)
-                                                    let newMovieQuote = MovieQuote(quote: quoteTextField.text!,
-                                                                                   movie: movieTextField.text!)
-                                                    self.movieQuotes.insert(newMovieQuote, at: 0)
-                                                    self.tableView.reloadData()
+//                                                    let newMovieQuote = MovieQuote(quote: quoteTextField.text!,
+//                                                                                   movie: movieTextField.text!)
+//                                                    self.movieQuotes.insert(newMovieQuote, at: 0)
+//                                                    self.tableView.reloadData()
+                                                    self.movieQuotesRef.addDocument(data: [
+                                                        "quote": quoteTextField.text!,
+                                                        "movie": movieTextField.text!,
+                                                        "created": Timestamp.init()
+                                                    ])
         })
         
         present(alertController, animated: true, completion: nil)
@@ -96,8 +107,10 @@ class MovieQuotesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 //            print("Delete")
-            movieQuotes.remove(at: indexPath.row)
-            tableView.reloadData()
+//            movieQuotes.remove(at: indexPath.row)
+//            tableView.reloadData()
+            let movieQuoteToDelete = movieQuotes[indexPath.row]
+            movieQuotesRef.document(movieQuoteToDelete.id!).delete()
         }
     }
     
@@ -105,7 +118,8 @@ class MovieQuotesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == detailSegueIdentifer){
             if let indexPath = tableView.indexPathForSelectedRow {
-                (segue.destination as! MovieQuoteDetailViewController).movieQuote = movieQuotes[indexPath.row]
+//                (segue.destination as! MovieQuoteDetailViewController).movieQuote = movieQuotes[indexPath.row]
+                (segue.destination as! MovieQuoteDetailViewController).movieQuoteRef = movieQuotesRef.document(movieQuotes[indexPath.row].id!)
                 
             }
         }
