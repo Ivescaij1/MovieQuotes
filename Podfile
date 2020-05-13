@@ -10,6 +10,7 @@ target 'MovieQuotes' do
   # https://firebase.google.com/docs/ios/setup#available-pods
   pod 'Firebase/Firestore'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
   
 
 end
